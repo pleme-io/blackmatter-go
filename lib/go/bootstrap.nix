@@ -1,5 +1,8 @@
 # Go bootstrap binary — fetched from go.dev
 #
+# CANONICAL SOURCE: substrate (github:pleme-io/substrate)
+# Keep in sync — direct file imports from consumers still use these paths.
+#
 # Used as the bootstrap compiler to build Go from source.
 # This is the only prebuilt binary in the chain.
 { lib, stdenv, fetchurl }:

@@ -1,5 +1,8 @@
 # Go Tool Builder
 #
+# CANONICAL SOURCE: substrate (github:pleme-io/substrate)
+# Keep in sync — direct file imports from consumers still use these paths.
+#
 # Reusable pattern for building Go CLI tools from upstream source.
 # Wraps buildGoModule with common conventions: version ldflags injection,
 # shell completion generation, and standard meta attributes.

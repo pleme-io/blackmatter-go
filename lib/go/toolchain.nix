@@ -1,5 +1,8 @@
 # Go toolchain — built from upstream source
 #
+# CANONICAL SOURCE: substrate (github:pleme-io/substrate)
+# Keep in sync — direct file imports from consumers still use these paths.
+#
 # Downloads Go source from go.dev and compiles with the bootstrap binary.
 # Applies NixOS-compatibility patches for finding system databases
 # (timezone, MIME types, network databases) from the Nix store.

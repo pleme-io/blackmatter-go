@@ -3,9 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/d6c71932130818840fc8fe9509cf50be8c64634f";
+    substrate = {
+      url = "github:pleme-io/substrate";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, substrate }:
   let
     allSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
 
@@ -20,7 +24,7 @@
     # ── Overlay ─────────────────────────────────────────────────────
     # Applies our from-source Go toolchain. Overrides pkgs.go,
     # pkgs.buildGoModule, and provides pkgs.goToolchain.
-    overlays.default = (import ./lib/overlay.nix).mkGoOverlay {};
+    overlays.default = (import "${substrate}/lib/go-overlay.nix").mkGoOverlay {};
 
     # ── Packages ────────────────────────────────────────────────────
     packages = forEachSystem ({ pkgs, ... }: {

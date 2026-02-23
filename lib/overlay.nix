@@ -1,11 +1,11 @@
 # Go Overlay Module
 #
+# CANONICAL SOURCE: substrate (github:pleme-io/substrate)
+# Keep in sync — direct file imports from consumers still use these paths.
+#
 # Provides a reusable Go overlay built from upstream source (go.dev).
 # This ensures consistent Go versions across all Go service builds,
 # fully independent of nixpkgs' Go version.
-#
-# SINGLE SOURCE OF TRUTH: All Go builds should use this overlay to ensure
-# consistent toolchain versions.
 #
 # Unlike the Rust overlay (which uses fenix as an external provider), this
 # builds Go directly from upstream source tarballs with a prebuilt bootstrap
