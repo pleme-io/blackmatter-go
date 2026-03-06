@@ -7,9 +7,13 @@
       url = "github:pleme-io/substrate";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devenv = {
+      url = "github:cachix/devenv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, substrate }:
+  outputs = { self, nixpkgs, substrate, devenv }:
   let
     allSystems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
 
@@ -30,6 +34,19 @@
     packages = forEachSystem ({ pkgs, ... }: {
       default = pkgs.goToolchain;
       go = pkgs.goToolchain;
+    });
+
+    # ── Dev shells ─────────────────────────────────────────────────
+    devShells = forEachSystem ({ pkgs, ... }: {
+      default = devenv.lib.mkShell {
+        inputs = { inherit nixpkgs devenv; };
+        inherit pkgs;
+        modules = [{
+          languages.nix.enable = true;
+          packages = with pkgs; [ nixpkgs-fmt nil ];
+          git-hooks.hooks.nixpkgs-fmt.enable = true;
+        }];
+      };
     });
 
     # ── Lib exports (standalone import paths) ───────────────────────
