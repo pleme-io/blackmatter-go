@@ -1,0 +1,27 @@
+schema_version: 1
+manifest:
+  name: blackmatter-go
+  kind: BlackmatterComponent
+  archetype: blackmatter-component-custom-overlay
+  description: From-source Go toolchain, overlay, and tool builder.
+  custom_flake: true
+  custom_flake_reason: |
+    Exposes a toolchain overlay + lib/ import paths (not just modules + packages).
+    Consumers import lib/overlay.nix directly from the flake source tree rather
+    than going through flake outputs. Template doesn't fit.
+dimensions:
+  vocabulary: [go, toolchain, overlay, bootstrap, buildGoModule]
+  domains: [Nix, Go]
+  stack: []
+  modules: {}
+  render:
+    produces:
+      - "pkgs.go + pkgs.goToolchain (from source)"
+      - "pkgs.buildGoModule (patched)"
+      - "lib/tool.nix (mkGoTool builder)"
+  compliance:
+    satisfies: []
+    participates: []
+  dag:
+    inputs: [nixpkgs, substrate]
+  attestation: { merkle_root: null, signed_by: null, producer: custom-flake }
